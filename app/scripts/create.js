@@ -18,8 +18,7 @@ function setupAutoCompleteSearch() {
   var input = document.getElementById('place_search');
 
   autocomplete = new google.maps.places.Autocomplete(input);
-
-  // TODO: Bind bounds to the map to improve searches.
+  autocomplete.bindTo('bounds', map);
 
   autocomplete.addListener('place_changed', placeSearchChanged);
 }
@@ -33,7 +32,6 @@ function placeSearchChanged() {
   }
   updateMapForNewPlace(place, genericMapMarker);
   generatePlaceInfo(place);
-  console.log(place);
 }
 
 function addCurrentPlaceToTrip() {
@@ -109,9 +107,8 @@ function createTrip() {
     newTrip.places = currentTripPlaces;
 
     var pastAddedPlaces = store.get('addedTrips');
-    console.log(pastAddedPlaces);
     if (pastAddedPlaces) {
-      pastAddedPlaces.push(newTrip);
+      pastAddedPlaces.unshift(newTrip);
       store.set('addedTrips', pastAddedPlaces);
     } else {
       store.set('addedTrips', [newTrip]);
@@ -134,12 +131,16 @@ function generatePlaceInfo(place) {
 
   var title = $("<h4 class='info'>" + place.name + '</h4>');
   var address = $("<h6 class='info'>" + place.formatted_address + '</h6>');
-  var number = $("<h6 class='info'>" + place.formatted_phone_number + '</h6>');
+  if (place.formatted_phone_number) {
+    var number = $("<h6 class='info'>" + place.formatted_phone_number + '</h6>');
+  }
   var types = $("<h6 class='info capitalize'>" + getPlaceTypes(place.types, 3) + '</h6>');
 
   $('#place_info').append(title);
   $('#place_info').append(address);
-  $('#place_info').append(number);
+  if (place.formatted_phone_number) {
+    $('#place_info').append(number);
+  }
   $('#place_info').append(types);
 
   if (place.photos) {
@@ -160,7 +161,6 @@ function generatePlaceInfo(place) {
         orbitContainer.append(imageSlide);
       }
     }
-    console.log(orbitContainer);
     orbit.append(orbitContainer);
     $('#place_info').append(orbit);
     $(document).foundation();
@@ -186,9 +186,9 @@ $(document).ready(function() {
   var headerHeight = $('.fixed-bar').outerHeight();
   $('#content').css('margin-top', headerHeight);
 
-  setupAutoCompleteSearch();
-
   initMap();
+
+  setupAutoCompleteSearch();
 
   $(document).foundation();
 
@@ -206,4 +206,4 @@ $(document).ready(function() {
       $('#title_bar').css('border', '');
     }
   })
-})
+});

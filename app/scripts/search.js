@@ -38,8 +38,5 @@ $(document).ready(function () {
 
   initMap();
 
-
-  // Bind the autocomplete to the map so we see local places.
-  //autocomplete.bindTo('bounds', map);
   $(document).foundation();
 });
