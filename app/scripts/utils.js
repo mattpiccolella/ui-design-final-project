@@ -55,10 +55,17 @@ function nextChar(c) {
     return String.fromCharCode(c.charCodeAt(0) + 1);
 }
 
-function getPlaceTypes(types) {
-  // TODO: Maybe make this better.
-  if (types.length >= 1) {
-    return types[0].replace(/_/g, ' ');;
+function getPlaceTypes(types, number) {
+  var typesString = '';
+  if (types.length > 0) {
+    var numberTypes = (types.length > number ? number : types.length);
+    for (var i = 0; i < numberTypes; i++) {
+      typesString = typesString + types[i].replace(/_/g, ' ');
+      if (i != numberTypes - 1) {
+        typesString = typesString + ', ';
+      }
+    }
+    return typesString;
   } else {
     return 'Type unavailable';
   }
@@ -86,7 +93,7 @@ function generateTripCard(trip) {
     var name = $("<p class='place-title'>" + trip.places[i].name + "</p>");
     link.append(name);
     infoCol.append(link);
-    var type = $("<p class='capitalize'>" + getPlaceTypes(trip.places[i].types) + '</p>');
+    var type = $("<p class='capitalize'>" + getPlaceTypes(trip.places[i].types, 3) + '</p>');
     infoCol.append(type);
 
     row.append(imgCol);

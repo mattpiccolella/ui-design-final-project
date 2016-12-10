@@ -22,7 +22,7 @@
     <!-- Import our own scripts -->
     <script type='text/javascript' src='scripts/map.js'></script>
     <script type='text/javascript' src='scripts/utils.js'></script>
-    <script type='text/javascript' src='scripts/search.js'></script>
+    <script type='text/javascript' src='scripts/create.js'></script>
     
   </head>
   <body>
@@ -32,18 +32,23 @@
     </div>
     <div id="content">
         <div class="row top-row collapse">
-            <div class="large-10 columns">
-                <input type="text" placeholder="Search for something...">
+            <div class="large-12 columns">
+                <input type="text" id="place_search" placeholder="Search for a place to add to your trip...">
             </div>
-            <div class="large-2 columns">
-                <a href="#" class="button postfix full">Search</a>
+            <div class="large-12 columns" id="place_info">
             </div>
-        </div>
-        <div id="trip-grid">
         </div>
     </div>
-    <div id="map-container">
-        <div id="map" class="search-map"></div>
+    <div id="map-container" class="search-divide">
+        <div id="map" class="create-map"></div>
+        <div id="current-trip">
+            <h3>Current Trip</h3>
+            <input type="text" placeholder="Give your trip a name" />
+            <p class="light-gray" id="blank-trip">You haven't added any places to your trip yet! Search on the left side to select an item and add it to your trip.</p>
+        </div>
+        <div id="create-trip">
+            <a href="#" id="create-trip-button" class="button">Create Trip</a>
+        </div>
     </div>
   </body>
 </html>
