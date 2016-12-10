@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="UI Design Final Project">
+    <meta name="author" content="DROP TABLE teams">
+
+    <title>INSERT TITLE HERE</title>
+
+    <!-- Import stylesheets -->
+    <link rel="stylesheet" href="stylesheets/vendor/foundation.min.css">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+
+    <!-- Import external Javascript libraries -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKXoUIeJbwh2gN1O2HxhksOVq4B89s3hY&libraries=places"></script>
+    <script type='text/javascript' src='scripts/vendor/jquery.js'></script>
+    <script type='text/javascript' src='scripts/vendor/foundation.min.js'></script>
+
+    <!-- Include our data stored here -->
+    <script type='text/javascript' src='scripts/mock-data.js'></script>
+
+    <!-- Import our own scripts -->
+    <script type='text/javascript' src='scripts/utils.js'></script>
+    <script type='text/javascript' src='scripts/main.js'></script>
+    
+  </head>
+  <body>
+    <div class="top-bar fixed-bar">
+        <a href="./index.html" class="menu_text title_text">Trippr</a>
+        <a href="./faq.html" class="menu_text subtitle_text">Frequently Asked Questions (FAQ)</a>
+    </div>
+    <div id="content">
+        <div class="row top-row collapse">
+            <div class="large-10 columns">
+                <input type="text" placeholder="Hex Value">
+            </div>
+            <div class="large-2 columns">
+                <a href="#" class="button postfix full">Search</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="large-6 columns">
+                <div class="callout">
+                    <h5>Beer Tour of the Lower East Side</h5>
+                    <div class="row">
+                        <div class="large-2 columns">
+                            <img src="http://www.google.com/mapfiles/markerA.png">
+                        </div>
+                        <div class="large-10 columns no-padding">
+                            <a href="http://google.com" target="_blank"><p class="place-title">Metropolitan Museum of Art</p></a>
+                            <p>Art Museum</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-2 columns">
+                            <img src="http://www.google.com/mapfiles/markerB.png">
+                        </div>
+                        <div class="large-10 columns no-padding">
+                            <a href="http://google.com" target="_blank"><p class="place-title">Mamagyro</p></a>
+                            <p>Restaurant, Greek</p>
+                        </div>
+                    </div>
+                    <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                    <a href="#">It's dangerous to go alone, take this.</a>
+                </div>
+            </div>
+            <div class="large-6 columns">
+                <div class="callout">
+                  <h5>This is a callout.</h5>
+                  <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                  <a href="#">It's dangerous to go alone, take this.</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+  </body>
+</html>

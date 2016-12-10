@@ -1,4 +1,75 @@
 #map {
-  height: 600px;
-  width: 1000px;
+  height: 100%;
+}
+
+#top-bar-container {
+  height: 12%;
+}
+
+.row {
+  max-width: initial;
+}
+
+#content {
+  float: left;
+  width: 60%;
+  padding-right: 28px;
+  padding-left: 28px;
+  position: fixed;
+  top: 8%;
+}
+
+#map-container {
+  float: right;
+  width: 40%;
+  position: fixed;
+  bottom: 0;
+  height: 92%;
+  right: 0;
+}
+
+.fixed-bar {
+  height:8%;
+  width: 100%; 
+  position:fixed; 
+  top: 0px;
+  background-color: black;
+}
+
+.title_text {
+  color: white;
+  margin-left: 20px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.subtitle_text {
+  color: white;
+  font-size: 18px;
+  margin-right: 20px;
+  font-weight: 550;
+}
+
+.top-row {
+  margin-top: 20px;
+}
+
+a.button {
+  background-color:#3D72A4;
+}
+
+.no-padding {
+  padding: 0px;
+}
+
+a {
+  color: #3D72A4;
+}
+
+.full {
+  width: 100%;
+}
+
+p.place-title {
+  margin-bottom: 0;
 }
