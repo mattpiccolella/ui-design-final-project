@@ -2,10 +2,6 @@
   height: 100%;
 }
 
-#top-bar-container {
-  height: 12%;
-}
-
 .row {
   max-width: initial;
 }
@@ -15,8 +11,8 @@
   width: 60%;
   padding-right: 28px;
   padding-left: 28px;
-  position: fixed;
-  top: 8%;
+  z-index: -1;
+  position: relative;
 }
 
 #map-container {
@@ -72,4 +68,13 @@ a {
 
 p.place-title {
   margin-bottom: 0;
+}
+
+.centered {
+  margin: 0 auto;
+  display: block;
+}
+
+.capitalize {
+    text-transform: capitalize;   
 }
