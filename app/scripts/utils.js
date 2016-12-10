@@ -42,12 +42,6 @@ function initMap() {
     zoom: 15
   });
 
-  mapMarker = new google.maps.Marker({
-    map: map,
-    anchorPoint: new google.maps.Point(0, -29),
-    icon: "http://www.google.com/mapfiles/markerA.png"
-  });
-
   directionsDisplay.setMap(map);
 }
 
@@ -71,33 +65,58 @@ function getPlaceTypes(types, number) {
   }
 }
 
+function generateIconLink(iconChar, green) {
+  if (green) {
+    return 'http://maps.gstatic.com/mapfiles/markers2/marker_green' + iconChar + '.png';
+  } else {
+    return 'http://www.google.com/mapfiles/marker' + iconChar + '.png';
+  }
+}
+
+function generatePlaceRow(place, iconLink, removeFunction) {
+  var row = $('<div>', {"class": "row"});
+
+  var imgCol = $('<div>', {"class": "large-2 columns"});
+  imgCol.append($('<img>', {"src": iconLink}));
+
+  var infoCol;
+  if (removeFunction) {
+    infoCol = $('<div>', {"class": "large-9 columns no-padding"});
+  } else {
+    infoCol = $('<div>', {"class": "large-10 columns no-padding"});
+  }
+
+  var link = $('<a>', {"href": place.website, "target": "_blank"});
+  var name = $("<p class='place-title'>" + place.name + "</p>");
+  link.append(name);
+  infoCol.append(link);
+  var type = $("<p class='capitalize'>" + getPlaceTypes(place.types, 2) + '</p>');
+  infoCol.append(type);
+
+  row.append(imgCol);
+  row.append(infoCol);
+
+  if (removeFunction) {
+    var removeCol = $('<div>', {"class": "large-1 columns no-padding"});
+    var remove = $("<a><i class='fi-x'></i></a>");
+    remove.click(function(){
+      removeFunction(place.place_id);
+    });
+    removeCol.append(remove);
+    row.append(removeCol);
+  }
+
+  return row;
+}
+
 function generateTripCard(trip) {
   var callout = $("<div>", {"class": "callout", "onclick": "focusTrip(" + trip.id + ")"});
   callout.append($("<h5>" + trip.title + "</h5>"))
 
   var iconChar = 'A';
   for (var i = 0; i < trip.places.length; i++) {
-    var iconLink;
-    if (i != trip.places.length - 1) {
-      iconLink = 'http://maps.gstatic.com/mapfiles/markers2/marker_green' + iconChar + '.png';
-    } else {
-      iconLink = 'http://www.google.com/mapfiles/marker' + iconChar + '.png';
-    }
-    var row = $('<div>', {"class": "row"});
-
-    var imgCol = $('<div>', {"class": "large-2 columns"});
-    imgCol.append($('<img>', {"src": iconLink}));
-
-    var infoCol = $('<div>', {"class": "large-10 columns no-padding"});
-    var link = $('<a>', {"href": trip.places[i].website, "target": "_blank"});
-    var name = $("<p class='place-title'>" + trip.places[i].name + "</p>");
-    link.append(name);
-    infoCol.append(link);
-    var type = $("<p class='capitalize'>" + getPlaceTypes(trip.places[i].types, 3) + '</p>');
-    infoCol.append(type);
-
-    row.append(imgCol);
-    row.append(infoCol);
+    var iconLink = generateIconLink(iconChar, (i != trip.places.length - 1));
+    var row = generatePlaceRow(trip.places[i], iconLink, null);
 
     callout.append(row);
 
@@ -111,9 +130,7 @@ function generateTripCard(trip) {
   return callout;
 }
 
-function findTripByID(id) {
-  var trips = DATA['New York'];
-
+function findTripByID(id, trips) {
   for (trip of trips) {
     if (trip.id == id) {
       return trip;
@@ -123,9 +140,7 @@ function findTripByID(id) {
   return null;
 }
 
-function calculateAndDisplayRoute(trip, directionsService, directionsDisplay) {
-  var places = trip.places;
-
+function calculateAndDisplayRoute(places, directionsService, directionsDisplay) {
   var waypoints = [];
   if (places.length > 2) {
     for (var i = 1; i < places.length - 1; i++) {

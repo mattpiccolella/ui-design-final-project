@@ -5,16 +5,18 @@
     <meta name="description" content="UI Design Final Project">
     <meta name="author" content="DROP TABLE teams">
 
-    <title>Trippr | Search</title>
+    <title>Trippr | Create</title>
 
     <!-- Import stylesheets -->
     <link rel="stylesheet" href="stylesheets/vendor/foundation.min.css">
+    <link rel="stylesheet" href="stylesheets/vendor/foundation-icons/foundation-icons.css">
     <link rel="stylesheet" href="stylesheets/styles.css">
 
     <!-- Import external Javascript libraries -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKXoUIeJbwh2gN1O2HxhksOVq4B89s3hY&libraries=places"></script>
     <script type='text/javascript' src='scripts/vendor/jquery.js'></script>
     <script type='text/javascript' src='scripts/vendor/foundation.min.js'></script>
+    <script type='text/javascript' src='scripts/vendor/store.min.js'></script>
 
     <!-- Include our data stored here -->
     <script type='text/javascript' src='scripts/mock-data.js'></script>
@@ -43,8 +45,9 @@
         <div id="map" class="create-map"></div>
         <div id="current-trip">
             <h3>Current Trip</h3>
-            <input type="text" placeholder="Give your trip a name" />
-            <p class="light-gray" id="blank-trip">You haven't added any places to your trip yet! Search on the left side to select an item and add it to your trip.</p>
+            <input type="text" id="title_bar" placeholder="Give your trip a name" />
+            <div id="current-trip-steps">
+            </div>
         </div>
         <div id="create-trip">
             <a href="#" id="create-trip-button" class="button">Create Trip</a>
