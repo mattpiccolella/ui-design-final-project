@@ -36,7 +36,7 @@ function getDirections(origin, destination) {
   });
 }
 
-function initSampleMap() {
+function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 40.7128, lng: -74.0059},
     zoom: 15
@@ -47,6 +47,8 @@ function initSampleMap() {
     anchorPoint: new google.maps.Point(0, -29),
     icon: "http://www.google.com/mapfiles/markerA.png"
   });
+
+  directionsDisplay.setMap(map);
 }
 
 function nextChar(c) {
@@ -56,19 +58,24 @@ function nextChar(c) {
 function getPlaceTypes(types) {
   // TODO: Maybe make this better.
   if (types.length >= 1) {
-    return types[0];
+    return types[0].replace(/_/g, ' ');;
   } else {
     return 'Type unavailable';
   }
 }
 
 function generateTripCard(trip) {
-  var callout = $("<div>", {"class": "callout"});
+  var callout = $("<div>", {"class": "callout", "onclick": "focusTrip(" + trip.id + ")"});
   callout.append($("<h5>" + trip.title + "</h5>"))
 
   var iconChar = 'A';
   for (var i = 0; i < trip.places.length; i++) {
-    var iconLink = 'http://www.google.com/mapfiles/marker' + iconChar + '.png';
+    var iconLink;
+    if (i != trip.places.length - 1) {
+      iconLink = 'http://maps.gstatic.com/mapfiles/markers2/marker_green' + iconChar + '.png';
+    } else {
+      iconLink = 'http://www.google.com/mapfiles/marker' + iconChar + '.png';
+    }
     var row = $('<div>', {"class": "row"});
 
     var imgCol = $('<div>', {"class": "large-2 columns"});
@@ -97,4 +104,51 @@ function generateTripCard(trip) {
   return callout;
 }
 
+function findTripByID(id) {
+  var trips = DATA['New York'];
 
+  for (trip of trips) {
+    if (trip.id == id) {
+      return trip;
+    }
+  }
+
+  return null;
+}
+
+function calculateAndDisplayRoute(trip, directionsService, directionsDisplay) {
+  var places = trip.places;
+
+  var waypoints = [];
+  if (places.length > 2) {
+    for (var i = 1; i < places.length - 1; i++) {
+      var place = places[i];
+      waypoints.push({
+        location: {
+          placeId: place.place_id
+        },
+        stopover: true
+      });
+    }
+  }
+
+  directionsService.route({
+    origin: {
+      placeId: places[0].place_id
+    },
+    destination: {
+      placeId: places[places.length - 1].place_id
+    },
+    waypoints: waypoints,
+    optimizeWaypoints: true,
+    travelMode: 'WALKING'
+  }, function(response, status) {
+    if (status === 'OK') {
+      directionsDisplay.setDirections(response);
+      var route = response.routes[0];
+      // TODO: Maybe do something with the route?
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
+  });
+}

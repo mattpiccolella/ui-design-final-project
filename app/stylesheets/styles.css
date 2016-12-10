@@ -78,3 +78,7 @@ p.place-title {
 .capitalize {
     text-transform: capitalize;   
 }
+
+body {
+  height: initial;
+}

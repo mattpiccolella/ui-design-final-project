@@ -1,3 +1,26 @@
+function generateTripGrid(trips) {
+  var row;
+  for (var i = 0; i < trips.length; i++) {
+    if (i % 2 == 0) {
+      if (i != 0) {
+        $('#trip-grid').append(row);
+      }
+      row = $("<div>", {"class": "row"});
+    }
+    var col = $("<div>", {"class": "large-6 columns"});
+    col.append(generateTripCard(trips[i]));
+    row.prepend(col);
+  }
+
+  $('#trip-grid').append(row);
+}
+
+function focusTrip(id) {
+  var trip = findTripByID(id);
+  calculateAndDisplayRoute(trip, directionsService, directionsDisplay);
+}
+
+
 $(document).ready(function () {
   // Set top margin of our content.
   var headerHeight = $('.fixed-bar').outerHeight();
@@ -5,12 +28,9 @@ $(document).ready(function () {
 
   var trips = DATA['New York'];
 
-  var sample = generateTripCard(trips[0]);
-  $('#content').append(sample);
-  console.log(sample);
+  generateTripGrid(trips);
 
-
-  initSampleMap();
+  initMap();
 
 
   // Bind the autocomplete to the map so we see local places.

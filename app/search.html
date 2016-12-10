@@ -20,6 +20,7 @@
     <script type='text/javascript' src='scripts/mock-data.js'></script>
 
     <!-- Import our own scripts -->
+    <script type='text/javascript' src='scripts/map.js'></script>
     <script type='text/javascript' src='scripts/utils.js'></script>
     <script type='text/javascript' src='scripts/search.js'></script>
     
@@ -38,48 +39,7 @@
                 <a href="#" class="button postfix full">Search</a>
             </div>
         </div>
-        <div class="row">
-            <div class="large-6 columns">
-                <div class="callout">
-                    <h5>Beer Tour of the Lower East Side</h5>
-                    <div class="row">
-                        <div class="large-2 columns">
-                            <img src="http://www.google.com/mapfiles/markerA.png">
-                        </div>
-                        <div class="large-10 columns no-padding">
-                            <a href="http://google.com" target="_blank"><p class="place-title">Metropolitan Museum of Art</p></a>
-                            <p>Art Museum</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="large-2 columns">
-                            <img src="http://www.google.com/mapfiles/markerB.png">
-                        </div>
-                        <div class="large-10 columns no-padding">
-                            <a href="http://google.com" target="_blank"><p class="place-title">Mamagyro</p></a>
-                            <p>Restaurant, Greek</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="large-2 columns">
-                            <img src="http://www.google.com/mapfiles/markerC.png">
-                        </div>
-                        <div class="large-10 columns no-padding">
-                            <a href="http://google.com" target="_blank"><p class="place-title">Mamagyro</p></a>
-                            <p>Restaurant, Greek</p>
-                        </div>
-                    </div>
-                    <p>Total Travel Time: 45 mins</p>
-                    <a class="button radius centered" href="#">More Info</a>
-                </div>
-            </div>
-            <div class="large-6 columns">
-                <div class="callout">
-                  <h5>This is a callout.</h5>
-                  <p>It has an easy to override visual style, and is appropriately subdued.</p>
-                  <a href="#">It's dangerous to go alone, take this.</a>
-                </div>
-            </div>
+        <div id="trip-grid">
         </div>
     </div>
     <div id="map-container">
