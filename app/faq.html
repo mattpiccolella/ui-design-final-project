@@ -12,18 +12,15 @@
     <link rel="stylesheet" href="stylesheets/styles.css">
 
     <!-- Import external Javascript libraries -->
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKXoUIeJbwh2gN1O2HxhksOVq4B89s3hY&libraries=places"></script>
     <script type='text/javascript' src='scripts/vendor/jquery.js'></script>
     <script type='text/javascript' src='scripts/vendor/foundation.min.js'></script>
-    <script type='text/javascript' src='scripts/vendor/store.min.js'></script>
 
     <!-- Include our data stored here -->
     <script type='text/javascript' src='scripts/mock-data.js'></script>
 
     <!-- Import our own scripts -->
-    <script type='text/javascript' src='scripts/map.js'></script>
     <script type='text/javascript' src='scripts/utils.js'></script>
-    <script type='text/javascript' src='scripts/search.js'></script>
+    <script type='text/javascript' src='scripts/faq.js'></script>
     
   </head>
   <body>
@@ -31,20 +28,13 @@
         <a href="index.html" class="menu_text title_text">DayTrippr</a>
         <a href="faq.html" class="menu_text subtitle_text">Frequently Asked Questions (FAQ)</a>
     </div>
-    <div id="content">
-        <div class="row top-row collapse">
-            <div class="large-10 columns">
-                <input type="text" placeholder="Search for something...">
-            </div>
-            <div class="large-2 columns">
-                <a href="#" class="button postfix full">Search</a>
-            </div>
+    <div id="content" class="row top-row collapse">
+        <div class="large-12 columns">
+            <h2>Frequently Asked Questions
         </div>
-        <div id="trip-grid">
+        <div class="large-12 columns">
+            <p>This is where all of our FAQs will go.</p>
         </div>
-    </div>
-    <div id="map-container">
-        <div id="map" class="search-map"></div>
     </div>
   </body>
 </html>

@@ -1,6 +1,8 @@
 var trips;
+var selectedTripId;
 
 function generateTripGrid(trips) {
+  $('#trip-grid').empty();
   var row;
   for (var i = 0; i < trips.length; i++) {
     if (i % 2 == 0) {
@@ -10,7 +12,11 @@ function generateTripGrid(trips) {
       row = $("<div>", {"class": "row"});
     }
     var col = $("<div>", {"class": "large-6 columns"});
-    col.append(generateTripCard(trips[i]));
+    var tripCard = generateTripCard(trips[i]);
+    if (trips[i].id == selectedTripId) {
+      tripCard.css('border', '3px solid black');
+    }
+    col.append(tripCard);
     row.append(col);
   }
 
@@ -19,7 +25,9 @@ function generateTripGrid(trips) {
 
 function focusTrip(id) {
   var trip = findTripByID(id, trips);
+  selectedTripId = id;
   calculateAndDisplayRoute(trip.places, directionsService, directionsDisplay);
+  generateTripGrid(trips);
 }
 
 $(document).ready(function () {

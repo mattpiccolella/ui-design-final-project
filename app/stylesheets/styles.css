@@ -10,8 +10,21 @@
   height: 46%;
 }
 
+.create-map-more-info {
+  height: 50%;
+}
+
 #current-trip {
   height: 46%;
+  border-bottom: 1px solid #a8a8a8;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 10px;
+  overflow-y: scroll;
+}
+
+#current-trip-more-info {
+  height: 50%;
   border-bottom: 1px solid #a8a8a8;
   margin-left: 20px;
   margin-right: 20px;
@@ -143,4 +156,13 @@ p.place-title {
 
 body {
   height: initial;
+}
+
+p.no-margin {
+  margin-bottom: initial;
+}
+
+.place-row {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
