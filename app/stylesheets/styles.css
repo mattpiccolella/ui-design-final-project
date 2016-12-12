@@ -1,3 +1,28 @@
+
+#home_body{
+  background-image: url("http://5d48184523c8a489ed05-91a4b8ed85c04e5358f91889505a4163.r43.cf1.rackcdn.com/54/4/large.jpg");
+}
+
+#home_title{
+  color: white;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.jumbotron {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+#main-nav {
+  height:8%;
+  width: 100%; 
+  top: 0px;
+  background-color: black;
+}
+
 .search-map {
   height: 100%;
 }
