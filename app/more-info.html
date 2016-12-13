@@ -5,39 +5,50 @@
     <meta name="description" content="UI Design Final Project">
     <meta name="author" content="DROP TABLE teams">
 
-    <title>Plan your Trips</title>
+    <title>DayTrippr</title>
 
     <!-- Import stylesheets -->
     <link rel="stylesheet" href="stylesheets/vendor/foundation.min.css">
+    <link rel="stylesheet" href="stylesheets/vendor/foundation-icons/foundation-icons.css">
     <link rel="stylesheet" href="stylesheets/styles.css">
 
     <!-- Import external Javascript libraries -->
-    <script type='text/javascript' src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKXoUIeJbwh2gN1O2HxhksOVq4B89s3hY&libraries=places"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKXoUIeJbwh2gN1O2HxhksOVq4B89s3hY&libraries=places"></script>
     <script type='text/javascript' src='scripts/vendor/jquery.js'></script>
     <script type='text/javascript' src='scripts/vendor/foundation.min.js'></script>
+    <script type='text/javascript' src='scripts/vendor/store.min.js'></script>
 
     <!-- Include our data stored here -->
     <script type='text/javascript' src='scripts/mock-data.js'></script>
 
     <!-- Import our own scripts -->
+    <script type='text/javascript' src='scripts/map.js'></script>
     <script type='text/javascript' src='scripts/utils.js'></script>
+    <script type='text/javascript' src='scripts/more-info.js'></script>
+    
   </head>
-  <body id="home_body">
-    <div id="main-nav" class="top-bar">
+  <body>
+    <div class="top-bar fixed-bar">
         <a href="index.html" class="menu_text title_text">DayTrippr</a>
         <div class="right">
             <a class="active menu_text subtitle_text" href="search.html" >Search Itinerary</a>
             <a class="active menu_text subtitle_text" href="create.html" >Create your Trip</a>
-            <a class="active menu_text subtitle_text" href="faq.html">Frequently Asked Questions (FAQ)</a>
+            <a href="faq.html" class="menu_text subtitle_text">Frequently Asked Questions (FAQ)</a>
         </div>
     </div>
-        <div class="jumbotron">
-            <h1 id="home_title" class="text-center menu_text">Plan Your Trips</h1>
-            <div class="large-10 columns text-center">
-                <input type="text" href="search.html" placeholder="Search for something...">
-                <a href="#" class="button postfix full">Search</a>
+    <div id="content">
+        <div class="row top-row collapse">
+            <div class="large-12 columns" id="place_info">
             </div>
         </div>
-    
+    </div>
+    <div id="map-container" class="search-divide">
+        <div id="map" class="create-map-more-info"></div>
+        <div id="current-trip-more-info">
+            <h3 id='trip-title'>Current Trip</h3>
+            <div id="current-trip-steps">
+            </div>
+        </div>
+    </div>
   </body>
 </html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="UI Design Final Project">
+    <meta name="author" content="DROP TABLE teams">
+
+    <title>DayTrippr | Create</title>
+
+    <!-- Import stylesheets -->
+    <link rel="stylesheet" href="stylesheets/vendor/foundation.min.css">
+    <link rel="stylesheet" href="stylesheets/vendor/foundation-icons/foundation-icons.css">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+
+    <!-- Import external Javascript libraries -->
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKXoUIeJbwh2gN1O2HxhksOVq4B89s3hY&libraries=places"></script>
+    <script type='text/javascript' src='scripts/vendor/jquery.js'></script>
+    <script type='text/javascript' src='scripts/vendor/foundation.min.js'></script>
+    <script type='text/javascript' src='scripts/vendor/store.min.js'></script>
+
+    <!-- Include our data stored here -->
+    <script type='text/javascript' src='scripts/mock-data.js'></script>
+
+    <!-- Import our own scripts -->
+    <script type='text/javascript' src='scripts/map.js'></script>
+    <script type='text/javascript' src='scripts/utils.js'></script>
+    <script type='text/javascript' src='scripts/create.js'></script>
+    
+  </head>
+  <body>
+    <div class="top-bar fixed-bar">
+        <a href="index.html" class="menu_text title_text">DayTrippr</a>
+        <div class="right">
+            <a class="active menu_text subtitle_text" href="search.html" >Search Itinerary</a>
+            <a class="active menu_text subtitle_text" href="create.html" >Create your Trip</a>
+            <a class="active menu_text subtitle_text" href="faq.html">Frequently Asked Questions (FAQ)</a>
+        </div>
+    </div>
+    <div id="content">
+        <div class="row top-row collapse">
+            <div class="large-12 columns">
+                <input type="text" id="place_search" placeholder="Search for a place to add to your trip...">
+            </div>
+            <div class="large-12 columns" id="place_info">
+            </div>
+        </div>
+    </div>
+    <div id="map-container" class="search-divide">
+        <div id="map" class="create-map"></div>
+        <div id="current-trip">
+            <h3>Current Trip</h3>
+            <input type="text" id="title_bar" placeholder="Give your trip a name" />
+            <div id="current-trip-steps">
+            </div>
+        </div>
+        <div id="create-trip">
+            <a href="#" id="create-trip-button" class="button">Create Trip</a>
+        </div>
+    </div>
+  </body>
+</html>

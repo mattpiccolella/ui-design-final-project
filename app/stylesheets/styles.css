@@ -1,4 +1,193 @@
-#map {
-  height: 600px;
-  width: 1000px;
+
+#home_body{
+  background-image: url("http://5d48184523c8a489ed05-91a4b8ed85c04e5358f91889505a4163.r43.cf1.rackcdn.com/54/4/large.jpg");
+}
+
+#home_title{
+  color: white;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.jumbotron {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+#main-nav {
+  height:8%;
+  width: 100%; 
+  top: 0px;
+  background-color: black;
+}
+
+.search-map {
+  height: 100%;
+}
+
+.light-gray {
+  color: #8a8a8a;
+}
+
+.create-map {
+  height: 46%;
+}
+
+.create-map-more-info {
+  height: 50%;
+}
+
+#current-trip {
+  height: 46%;
+  border-bottom: 1px solid #a8a8a8;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 10px;
+  overflow-y: scroll;
+}
+
+#current-trip-more-info {
+  height: 50%;
+  border-bottom: 1px solid #a8a8a8;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-top: 10px;
+  overflow-y: scroll;
+}
+
+#create-trip {
+  height: 8%;
+}
+
+h4.info, h6.info {
+  margin-bottom:0;
+}
+
+#create-trip-button {
+  left: 0;
+  right: 0;
+  margin-left: 20px;
+  margin-right: 20px;
+  position: absolute;
+  margin-top: 1%;
+}
+
+#add-to-trip-button {
+  display: block;
+  margin: 0 auto;
+  width: 250px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+img.orbit-image {
+  height: 300px;
+  width: initial;
+  display: block;
+  margin: 0 auto;
+}
+
+.orbit-container {
+  background:rgba(0, 0, 0, 0.05);
+  left: 0;
+  right: 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.search-divide {
+  border-left: 2px black;
+}
+
+.row {
+  max-width: initial;
+}
+
+#content {
+  float: left;
+  width: 60%;
+  padding-right: 28px;
+  padding-left: 28px;
+  z-index: -1;
+  position: relative;
+}
+
+#map-container {
+  float: right;
+  width: 40%;
+  position: fixed;
+  bottom: 0;
+  height: 92%;
+  right: 0;
+  border-left: 1px solid #a8a8a8;
+}
+
+.fixed-bar {
+  height:8%;
+  width: 100%; 
+  position:fixed; 
+  top: 0px;
+  background-color: black;
+}
+
+.title_text {
+  color: white;
+  margin-left: 20px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.subtitle_text {
+  color: white;
+  font-size: 18px;
+  margin-right: 20px;
+  font-weight: 550;
+}
+
+.top-row {
+  margin-top: 20px;
+}
+
+a.button {
+  background-color:#3D72A4;
+}
+
+.no-padding {
+  padding: 0px;
+}
+
+a {
+  color: #3D72A4;
+}
+
+.full {
+  width: 100%;
+}
+
+p.place-title {
+  margin-bottom: 0;
+}
+
+.centered {
+  margin: 0 auto;
+  display: block;
+}
+
+.capitalize {
+    text-transform: capitalize;   
+}
+
+body {
+  height: initial;
+}
+
+p.no-margin {
+  margin-bottom: initial;
+}
+
+.place-row {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
