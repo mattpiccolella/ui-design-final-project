@@ -1,3 +1,4 @@
+// Global application variables.
 var selectedPlace;
 var currentTripPlaces = [];
 var markers = [];
@@ -11,9 +12,12 @@ var firstLegMarker = new google.maps.Marker({
     icon: "http://www.google.com/mapfiles/markerA.png"
 });
 
+
+// Helper and placeholder text for our application.
 var helpText = $("<p class='light-gray' id='blank-trip'>You haven't added any places to your trip yet! Search on the left side to select an item and add it to your trip.</p>");
 var placeInfoText = $("<p class='light-gray' id='blank-trip'>Information about search result will show up here.</p>");
 
+// Set up the search for our Google Places searchbox.
 function setupAutoCompleteSearch() {
   var input = document.getElementById('place_search');
 
@@ -23,10 +27,10 @@ function setupAutoCompleteSearch() {
   autocomplete.addListener('place_changed', placeSearchChanged);
 }
 
+// Respond to changes in search text.
 function placeSearchChanged() {
   var place = autocomplete.getPlace();
   if (!place.geometry) {
-    // TODO: Handle the error.
     console.log('Sorry, but you entered an invalid place.')
     return;
   }
@@ -37,12 +41,14 @@ function placeSearchChanged() {
   $(document).foundation();
 }
 
+// Push the new place to the trip, update the current trip.
 function addCurrentPlaceToTrip() {
   currentTripPlaces.push(selectedPlace);
 
   updateCurrentTrip(true);
 }
 
+// In the case where we want to clear the page, we need the ability to reset the search.
 function resetPlaceSearch() {
   $('#place_info').empty();
 
@@ -51,6 +57,8 @@ function resetPlaceSearch() {
   $('#place_search').val('');
 }
 
+// Search through the trips and remove the one with a given ID.
+// Also update the current trip once we have removed that place.
 function removePlaceFromTrip(placeId) {
   var index = -1;
   for (var i = 0; i < currentTripPlaces.length; i++) {
@@ -66,6 +74,8 @@ function removePlaceFromTrip(placeId) {
   updateCurrentTrip(true);
 }
 
+// Update the current trip.
+// Parameter: shouldChangeMap - whether the map should also be updated.
 function updateCurrentTrip(shouldChangeMap) {
   var currentTrip = $('#current-trip-steps');
   currentTrip.empty();
@@ -75,8 +85,10 @@ function updateCurrentTrip(shouldChangeMap) {
   } else {
     var iconChar = 'A';
     for (var i = 0; i < currentTripPlaces.length; i++) {
+      // Helper methods to generate the actual HTML for each trip.
       var iconLink = generateIconLink(iconChar, (i != currentTripPlaces.length - 1));
       var row = generatePlaceRow(currentTripPlaces[i], iconLink, showTripInfo, removePlaceFromTrip);
+      // Mark a trip as selected.
       if (currentTripPlaces[i].place_id == selectedPlace.place_id) {
         row.css('border', '2px solid hsla(0,0%,4%,.25)');
         row.css('border-radius', '3px');
@@ -97,6 +109,7 @@ function updateCurrentTrip(shouldChangeMap) {
   }
 }
 
+// Show the actual information for a place on the screen.
 function showTripInfo(event) {
   generatePlaceInfo(event.data.place, $('#place_info'), false, null);
   $('#place_search').val(event.data.place.name + ', ' + event.data.place.formatted_address);
@@ -105,14 +118,17 @@ function showTripInfo(event) {
   $(document).foundation();
 }
 
+// Our global method for actually creating a trip. This adds to the local storage.
 function createTrip() {
   var isValid = true;
 
+  // Error handling for title.
   if ($('#title_bar').val() == '') {
     $('#title_bar').css('border', '1px solid red');
     isValid = false;
   }
 
+  // Alert the user if they try to create a blank trip.
   if (currentTripPlaces.length == 0) {
     alert("Please add at least one place to your trip before creating it.");
     isValid = false;
@@ -124,6 +140,7 @@ function createTrip() {
     newTrip.id = Math.floor(Math.random() * 100000) + 1  ;
     newTrip.places = currentTripPlaces;
 
+    // Save the data to local storage.
     var pastAddedPlaces = store.get('addedTrips');
     if (pastAddedPlaces) {
       pastAddedPlaces.unshift(newTrip);
@@ -134,6 +151,7 @@ function createTrip() {
 
     alert('Thanks so much for adding your trip! Return to the Search page to find your trip.');
 
+    // Clear the page so a user can create a new trip.
     currentTripPlaces = [];
     updateCurrentTrip(true);
     resetPlaceSearch();
@@ -147,6 +165,7 @@ $(document).ready(function() {
   var headerHeight = $('.fixed-bar').outerHeight();
   $('#content').css('margin-top', headerHeight);
 
+  // Set up the page.
   initMap();
 
   setupAutoCompleteSearch();
@@ -159,6 +178,7 @@ $(document).ready(function() {
 
   $('#create-trip-button').click(createTrip);
 
+  // Error handling for the title bar.
   $('#title_bar').on('input', function() {
     var numChars = $('#title_bar').val().length;
     if (numChars == 0) {

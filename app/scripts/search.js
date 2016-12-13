@@ -1,6 +1,9 @@
+// Global variables.
 var trips;
 var selectedTrips;
 var selectedTripId;
+
+// Generate the results that show as a grid. Takes a list of trips that are then drawn.
 function generateTripGrid(trips) {
   $('#trip-grid').empty();
   if (trips.length == 0) {
@@ -29,6 +32,7 @@ function generateTripGrid(trips) {
   $('#trip-grid').append(row);
 }
 
+// Whenever we click a trip, we want to make sure it gets highlighted and the route is drawn.
 function focusTrip(id) {
   var trip = findTripByID(id, selectedTrips);
   selectedTripId = id;
@@ -36,13 +40,17 @@ function focusTrip(id) {
   generateTripGrid(selectedTrips);
 }
 
+// Find all the trips that match a search query.
 function searchTrips(query) {
   var newTrips = [];
   for (trip of trips) {
+    // First check title
     if (trip.title.toLowerCase().indexOf(query.toLowerCase()) != -1) {
       newTrips.push(trip);
+    // Then check place name
     } else if (queryMatchesPlaceName(trip, query)) {
       newTrips.push(trip);
+    // Then check place type
     } else if (queryMatchesPlaceType(trip, query)) {
       newTrips.push(trip);
     }
@@ -52,16 +60,17 @@ function searchTrips(query) {
   generateTripGrid(selectedTrips);
 }
 
+// Go through all the place names and check whether any of them match.
 function queryMatchesPlaceName(trip, query) {
   for (place of trip.places) {
     if (place.name.toLowerCase().indexOf(query.toLowerCase()) != -1) {
-      console.log('Match on Place Name: ' + place.name);
       return true;
     }
   }
   return false;
 }
 
+// Go through all of the displayed place names and find one that matches.
 function queryMatchesPlaceType(trip, query) {
   for (place of trip.places) {
     var types = getPlaceTypesAsList(place.types, 2);
@@ -80,6 +89,7 @@ $(document).ready(function () {
   var headerHeight = $('.fixed-bar').outerHeight();
   $('#content').css('margin-top', headerHeight);
 
+  // Instantiate the page.
   trips = DATA;
 
   var newTrips = store.get('addedTrips');
@@ -93,7 +103,7 @@ $(document).ready(function () {
 
   initMap();
 
- $('#search-bar').on('input', function(e){
+  $('#search-bar').on('input', function(e){
     var query = $('#search-bar').val();
     console.log(query);
     searchTrips(query);

@@ -1,9 +1,11 @@
+// Global variables and helper text.
 var placeInfoText = $("<p class='light-gray' id='blank-trip'>Select a place listed under the map on your right to see detail of each of them.</p>");
 var errorText = $("<p class='light-gray' id='blank-trip'>Sorry, but we cannot find this trip. Please go back and try again.</p>")
 var trips;
 var pageTrip;
 var selectedPlaceId;
 
+// Find the trip data given the query parameter (id).
 function getTripForPage() {
   var tripId = getQueryVariable('tripId');
   trips = DATA;
@@ -17,6 +19,8 @@ function getTripForPage() {
   return trip;
 }
 
+// Similar to how we draw on the create info page. We heavily utilize helper methods here to generate
+// the HTML for each place. Additionally, we set up click listeners.
 function drawTripPlaces() {
   var currentTrip = $('#current-trip-steps');
   currentTrip.empty();
@@ -31,13 +35,13 @@ function drawTripPlaces() {
       row.click({place_id: pageTrip.places[i].place_id}, function(event) {
         selectedPlaceId = event.data.place_id;
         var service = new google.maps.places.PlacesService(map);
+        // Since the function to get image URLs is not JSON-serialized, we have to re-fetch the data here.
         service.getDetails({placeId: event.data.place_id}, function(place, status) {
           if (status == google.maps.places.PlacesServiceStatus.OK) {
             generatePlaceInfo(place, $('#place_info'), false, null);
             $(document).foundation();
             drawTripPlaces();
           } else {
-            // TODO: Handle the error.
             console.log('Could not get the place');
           }
         });
@@ -45,6 +49,8 @@ function drawTripPlaces() {
       currentTrip.append(row);
       iconChar = nextChar(iconChar);
     }
+
+    // Show directions if we have more than one. Otherwise show a single marker.
     if (pageTrip.places.length > 1) {
       calculateAndDisplayRoute(pageTrip.places, directionsService, directionsDisplay);
     } else {
@@ -54,6 +60,7 @@ function drawTripPlaces() {
 
 function showTripInfo(event) {
   generatePlaceInfo(event.data.place, $('#place_info'), false, null);
+  // Called to get the orbit to work.
   $(document).foundation();
 }
 
@@ -62,6 +69,7 @@ $(document).ready(function() {
   var headerHeight = $('.fixed-bar').outerHeight();
   $('#content').css('margin-top', headerHeight);
 
+  // Overall page setup.
   initMap();
 
   pageTrip = getTripForPage();

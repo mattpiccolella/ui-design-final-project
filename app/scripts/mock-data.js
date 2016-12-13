@@ -1,3 +1,18 @@
+/*
+ * This file contains mock data for our application. Normally this would be stored in a database,
+ * but in order to have a usable app, we created this file to have some usable data.
+ */
+
+ /*
+  * SCHEMA:
+  *
+  * {
+  *   title : String,
+  *   id : Integer,
+  *   places : [Place]
+  * }
+  */
+
 var lowerEastSideComedy = {
   title : "Comedy on the LES",
   id : 1,

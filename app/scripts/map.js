@@ -4,6 +4,7 @@ var map;
 var directionsService = new google.maps.DirectionsService;
 var directionsDisplay = new google.maps.DirectionsRenderer({map: map});
 
+// Change the map to zoom in on a new place and make a new marker visible.
 function updateMapForNewPlace(place, mapMarker) {
   mapMarker.setVisible(false);
 

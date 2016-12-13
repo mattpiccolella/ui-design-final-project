@@ -1,5 +1,6 @@
 var APP_NAME = 'DayTrippr';
 
+// Find the distance between two locations. We don't really end up using this, but we'll keep it anyway.
 function getDistanceMatrix(origins, destinations) {
   var distanceMatrixService = new google.maps.DistanceMatrixService();
   var distanceMatrixRequest = {
@@ -10,15 +11,14 @@ function getDistanceMatrix(origins, destinations) {
   }
   distanceMatrixService.getDistanceMatrix(distanceMatrixRequest, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {                    
-      // TODO: Handle the response.
       console.log(response);
     } else {
-      // TODO: Handle the error.
       console.log('Sorry, but it seems something went wrong.');
     }
   });
 }
 
+// Get the directions between two places. We don't really end up using this, but we'll keep it anyway.
 function getDirections(origin, destination) {
   var directionsService = new google.maps.DirectionsService();
   var directionsRequest = {
@@ -29,15 +29,14 @@ function getDirections(origin, destination) {
   };
   directionsService.route(directionsRequest, function(response, status) {
     if (status == google.maps.DirectionsStatus.OK) {                    
-      // TODO: Handle the response.
       console.log(response);
     } else {
-      // TODO: Handle the error.
       console.log('Sorry, but it seems something went wrong.');
     }
   });
 }
 
+// Set up our initial map. The location is the center of Manhattan.
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 40.7128, lng: -74.0059},
@@ -47,10 +46,13 @@ function initMap() {
   directionsDisplay.setMap(map);
 }
 
+// Utility method to help us get icons from Google Maps.
 function nextChar(c) {
     return String.fromCharCode(c.charCodeAt(0) + 1);
 }
 
+// Split place types into a string, making them camel case i.e. more presentable.
+// Takes the number of places we want, as we want different numbers at different points in our app.
 function getPlaceTypes(types, number) {
   var typesString = '';
   if (types.length > 0) {
@@ -67,6 +69,7 @@ function getPlaceTypes(types, number) {
   }
 }
 
+// Similar to the function above, but return them as a list instead.
 function getPlaceTypesAsList(types, number) {
   var typesList = [];
   var typeString = '';
@@ -81,6 +84,7 @@ function getPlaceTypesAsList(types, number) {
   }
 }
 
+// Get the link for an icon, based on whether it should be green and what letter it should show.
 function generateIconLink(iconChar, green) {
   if (green) {
     return 'http://maps.gstatic.com/mapfiles/markers2/marker_green' + iconChar + '.png';
@@ -89,6 +93,8 @@ function generateIconLink(iconChar, green) {
   }
 }
 
+// Generate a row showing a place.
+// Two optional parameters: a function to call upon presenting info (more info button), and a function to remove a place once it's in the trip.
 function generatePlaceRow(place, iconLink, presentInfoFunction, removeFunction) {
   var row = $('<div>', {"class": "row place-row"});
 
@@ -129,6 +135,7 @@ function generatePlaceRow(place, iconLink, presentInfoFunction, removeFunction) 
   return row;
 }
 
+// Basically calls the method above, generating a different row for each place.
 function generateTripCard(trip) {
   var callout = $("<div>", {"class": "callout", "onclick": "focusTrip(" + trip.id + ")"});
   callout.append($("<h5><a onclick=focusTrip(" + trip.id + ")>" + trip.title + "</a></h5>"))
@@ -149,10 +156,11 @@ function generateTripCard(trip) {
   moreInfo.click(function() {
     open('more-info.html?tripId=' + trip.id);
   });
-  // TODO: Add expected travel time.
+
   return callout;
 }
 
+// Simple method to find a trip by the ID of that trip.
 function findTripByID(id, trips) {
   for (trip of trips) {
     if (trip.id == id) {
@@ -163,7 +171,9 @@ function findTripByID(id, trips) {
   return null;
 }
 
+// Method to actually go through and find the directions and display that route on the map.
 function calculateAndDisplayRoute(places, directionsService, directionsDisplay) {
+  // The waypoints are all the places that aren't first or last in our route.
   var waypoints = [];
   if (places.length > 2) {
     for (var i = 1; i < places.length - 1; i++) {
@@ -186,13 +196,14 @@ function calculateAndDisplayRoute(places, directionsService, directionsDisplay) 
     },
     waypoints: waypoints,
     optimizeWaypoints: true,
+    // We're looking specifically at walking instructions.
     travelMode: 'WALKING'
   }, function(response, status) {
     if (status === 'OK') {
       directionsDisplay.setDirections(response);
       var route = response.routes[0];
-      // TODO: Maybe do something with the route?
     } else {
+      // Error in the case where Google cannot find walking directions.
       window.alert('Sorry, but we were unable to find a walking route between those locations. This may be happening because your location is far away. Try somewhere closer!');
     }
   });
@@ -211,6 +222,7 @@ function getQueryVariable(variable) {
   return(false);
 }
 
+// A large function to generate all the information about a place. Also takes a handler for a function in the case we want to have an Add Trip button.
 function generatePlaceInfo(place, selector, shouldAddTrip, addTripFunction) {
   var elements = [];
   selector.empty();
@@ -229,6 +241,7 @@ function generatePlaceInfo(place, selector, shouldAddTrip, addTripFunction) {
   }
   selector.append(types);
 
+  // Create the orbit so people can scroll through photos.
   if (place.photos) {
     orbit = $("<div class='orbit' role='region' data-auto-play='false' data-orbit>");
     var orbitContainer = $('<ul/>').addClass('orbit-container');
@@ -254,6 +267,7 @@ function generatePlaceInfo(place, selector, shouldAddTrip, addTripFunction) {
     selector.append(orbit);
   }
 
+  // Show more information if it's available.
   if (place.opening_hours && place.opening_hours.weekday_text) {
     var hours = $("<h6 class='info'>Hours on " + place.opening_hours.weekday_text[(new Date()).getDay()] + "</h6>");
     selector.append(hours);
