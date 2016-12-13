@@ -3,10 +3,20 @@
   background-image: url("http://5d48184523c8a489ed05-91a4b8ed85c04e5358f91889505a4163.r43.cf1.rackcdn.com/54/4/large.jpg");
 }
 
-#home_title{
+#home_title {
   color: white;
   font-size: 40px;
   font-weight: 700;
+}
+
+.home-subtitle {
+  color: white;
+  font-size: 1.1rem;
+}
+
+.home-page-button {
+  margin-bottom: 0.5rem;
+  font-size: 1.0rem;
 }
 
 .jumbotron {
@@ -14,6 +24,13 @@
   top: 50%;
   left:50%;
   transform: translate(-50%,-50%);
+  background: rgba(0,0,0,0.4);
+  padding: 20px 30px;
+  width:45%;
+}
+
+#search-a-trip {
+  margin-bottom: 5px;
 }
 
 #main-nav {
@@ -190,4 +207,9 @@ p.no-margin {
 .place-row {
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.menu-button {
+  border: 1px solid white;
+  padding: 5px 10px;
 }
