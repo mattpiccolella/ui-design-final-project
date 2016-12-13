@@ -1,4 +1,5 @@
 var trips;
+var selectedTrips;
 var selectedTripId;
 
 function generateTripGrid(trips) {
@@ -24,10 +25,50 @@ function generateTripGrid(trips) {
 }
 
 function focusTrip(id) {
-  var trip = findTripByID(id, trips);
+  $('#click-a-trip').hide();
+  var trip = findTripByID(id, selectedTrips);
   selectedTripId = id;
   calculateAndDisplayRoute(trip.places, directionsService, directionsDisplay);
-  generateTripGrid(trips);
+  generateTripGrid(selectedTrips);
+}
+
+function searchTrips(query) {
+  var newTrips = [];
+  for (trip of trips) {
+    if (trip.title.toLowerCase().indexOf(query.toLowerCase()) != -1) {
+      newTrips.push(trip);
+    } else if (queryMatchesPlaceName(trip, query)) {
+      newTrips.push(trip);
+    } else if (queryMatchesPlaceType(trip, query)) {
+      newTrips.push(trip);
+    }
+  }
+
+  selectedTrips = newTrips;
+  generateTripGrid(selectedTrips);
+}
+
+function queryMatchesPlaceName(trip, query) {
+  for (place of trip.places) {
+    if (place.name.toLowerCase().indexOf(query.toLowerCase()) != -1) {
+      console.log('Match on Place Name: ' + place.name);
+      return true;
+    }
+  }
+  return false;
+}
+
+function queryMatchesPlaceType(trip, query) {
+  for (place of trip.places) {
+    var types = getPlaceTypesAsList(place.types, 2);
+    for (type of types) {
+      console.log('Checking type ' + type);
+      if (type.toLowerCase().indexOf(query.toLowerCase()) != -1) {
+        console.log('Match on Type: ' + type);
+        return true;
+      }
+    }
+  }
 }
 
 $(document).ready(function () {
@@ -42,9 +83,17 @@ $(document).ready(function () {
     trips = newTrips.concat(trips);
   }
 
-  generateTripGrid(trips);
+  selectedTrips = trips;
+
+  generateTripGrid(selectedTrips);
 
   initMap();
+
+ $('#search-bar').on('input', function(e){
+    var query = $('#search-bar').val();
+    console.log(query);
+    searchTrips(query);
+  });
 
   $(document).foundation();
 });

@@ -67,6 +67,20 @@ function getPlaceTypes(types, number) {
   }
 }
 
+function getPlaceTypesAsList(types, number) {
+  var typesList = [];
+  var typeString = '';
+  if (types.length > 0) {
+    var numberTypes = (types.length > number ? number : types.length);
+    for (var i = 0; i < numberTypes; i++) {
+      typesList.push(types[i].replace(/_/g, ' '));
+    }
+    return typesList;
+  } else {
+    return [];
+  }
+}
+
 function generateIconLink(iconChar, green) {
   if (green) {
     return 'http://maps.gstatic.com/mapfiles/markers2/marker_green' + iconChar + '.png';
