@@ -1,4 +1,4 @@
-var placeInfoText = $("<p class='light-gray' id='blank-trip'>Select a place on the right to learn more about it.</p>");
+var placeInfoText = $("<p class='light-gray' id='blank-trip'>Select a place listed under the map on your right to see detail of each of them.</p>");
 var errorText = $("<p class='light-gray' id='blank-trip'>Sorry, but we cannot find this trip. Please go back and try again.</p>")
 var trips;
 var pageTrip;
