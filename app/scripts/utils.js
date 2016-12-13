@@ -104,13 +104,11 @@ function generatePlaceRow(place, iconLink, presentInfoFunction, removeFunction) 
 
   var link;
   if (presentInfoFunction) {
-    link = $('<a>');
+    link = $('<a>', {class: 'place-title'}).text(place.name);
     link.click({'place' : place}, presentInfoFunction);    
   } else {
-    link = $('<a>', {href: place.website, target: '_blank'});
+    link = $('<a>', {class: 'place-title', href: place.website, target: '_blank'}).text(place.name);
   }
-  var name = $("<p class='place-title'>" + place.name + "</p>");
-  link.append(name);
   infoCol.append(link);
   var type = $("<p class='capitalize no-margin'>" + getPlaceTypes(place.types, 2) + '</p>');
   infoCol.append(type);
@@ -195,7 +193,7 @@ function calculateAndDisplayRoute(places, directionsService, directionsDisplay) 
       var route = response.routes[0];
       // TODO: Maybe do something with the route?
     } else {
-      window.alert('Directions request failed due to ' + status);
+      window.alert('Sorry, but we were unable to find a walking route between those locations. This may be happening because your location is far away. Try somewhere closer!');
     }
   });
 }

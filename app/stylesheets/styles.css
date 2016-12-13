@@ -213,3 +213,7 @@ p.no-margin {
   border: 1px solid white;
   padding: 5px 10px;
 }
+
+.orbit-next, .orbit-previous {
+  background-color: hsla(0,0%,4%,.5)
+}

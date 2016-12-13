@@ -1,9 +1,14 @@
 var trips;
 var selectedTrips;
 var selectedTripId;
-
 function generateTripGrid(trips) {
   $('#trip-grid').empty();
+  if (trips.length == 0) {
+    $('#no-search-results').show();
+  } else {
+    $('#no-search-results').hide();
+  }
+
   var row;
   for (var i = 0; i < trips.length; i++) {
     if (i % 2 == 0) {
@@ -25,7 +30,6 @@ function generateTripGrid(trips) {
 }
 
 function focusTrip(id) {
-  $('#click-a-trip').hide();
   var trip = findTripByID(id, selectedTrips);
   selectedTripId = id;
   calculateAndDisplayRoute(trip.places, directionsService, directionsDisplay);
